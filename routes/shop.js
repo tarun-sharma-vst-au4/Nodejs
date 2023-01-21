@@ -1,14 +1,17 @@
-const express = require("express");
 const path = require("path");
 
+const express = require("express");
+
 const rootDir = require("../util/path");
+const adminData = require("./admin");
 
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  //res.send("<h1>Hello from middleware</h1>");
-  //__dirname - holds absolute path of our project so it will be - '/Users/taruns117/Downloads/01-understanding-npm-scripts/routes/
-  res.sendFile(path.join(rootDir, "views", "shop.html"));
+  const products = adminData.products;
+  //render default template engine define in app.js --> app.set("view engine", "pug");
+  res.render("shop", { prods: products, docTitle: "Shop", path: "/" });
+  //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
 });
 
 module.exports = router;
