@@ -1,14 +1,25 @@
-const express = require("express");
-const path = require("path");
+const path = require('path');
 
-const rootDir = require("../util/path");
+const express = require('express');
+
+const shopController = require('../controllers/shop');
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  //res.send("<h1>Hello from middleware</h1>");
-  //__dirname - holds absolute path of our project so it will be - '/Users/taruns117/Downloads/01-understanding-npm-scripts/routes/
-  res.sendFile(path.join(rootDir, "views", "shop.html"));
-});
+router.get('/', shopController.getIndex);
+
+router.get('/products', shopController.getProducts);
+
+router.get('/products/:productId', shopController.getProduct);
+
+router.get('/cart', shopController.getCart);
+
+router.post('/cart', shopController.postCart);
+
+router.post('/cart-delete-item', shopController.postCartDeleteProduct);
+
+router.get('/orders', shopController.getOrders);
+
+router.get('/checkout', shopController.getCheckout);
 
 module.exports = router;
